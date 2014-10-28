@@ -3,12 +3,20 @@
 
 #include <QWidget>
 #include <QtGui>
+#include <QGraphicsPixmapItem>
+#include <QString>
 
-class Element : public QWidget
+class Element : public QGraphicsPixmapItem
 {
-    Q_OBJECT
 public:
     Element();
+    ~Element();
+    void update();
+    void move();
+
+private:
+    QString dir;
+
 };
 
 #endif // ELEMENT_H

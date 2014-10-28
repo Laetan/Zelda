@@ -1,4 +1,5 @@
 #include "zelda.h"
+#include <QString>
 
 
 Zelda::Zelda()
@@ -9,15 +10,15 @@ Zelda::Zelda()
     name = "Zelda";
 }
 
-void Zelda::GetArrows()
+int Zelda::getArrows()
 {
     return nbreArrows;
 }
 
-Zelda::TakeItem(Ressource &item)
-{
-    // A implementer suivant les items créer
-}
+//void Zelda::takeItem(Ressource &item)
+//{
+//    // A implementer suivant les items créer
+//}
 
 
 // Getter & Setter
@@ -30,12 +31,12 @@ void Zelda::setNbreArrows(int value)
 {
     nbreArrows = value;
 }
-string Zelda::getName() const
+QString Zelda::getName() const
 {
     return name;
 }
 
-void Zelda::setName(const string &value)
+void Zelda::setName(const QString &value)
 {
     name = value;
 }
@@ -52,19 +53,16 @@ void Zelda::keyPressEvent(QKeyEvent *event)
     // connect(QTimer object, SIGNAL(timeout()), this, SLOT(moveby(parameter)));
 }
 
-void Zelda::move(char dir)
-{
-    if(dir == "z")
-    {
-        this->moveby(0,-1);
-    }
-
-   // A faire pour les autres
-}
-
-void Zelda::startMove(char dir)
-{
-    timer->setInterval(10);
-    connect(timer, SIGNAL(timeout()), this, SLOT(move(dir)));
-}
-
+//void Zelda::move(QString dir)
+//{
+//    if(dir == "z")
+//        this->moveBy(0,-1);
+//    else if(dir == "q")
+//        this->moveBy(-1,0);
+//    else if(dir == "s")
+//        this->moveBy(0,1);
+//    else if(dir == "d")
+//        this->moveBy(1,0);
+//    else
+//        qDebug() <<"Bad key";
+//}

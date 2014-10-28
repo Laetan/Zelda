@@ -5,18 +5,14 @@
 #include <QKeyEvent>
 #include <QWidget>
 #include <QtGui>
+#include <QString>
 
 #include "element.h"
 
 class Personnage : public Element  // Classe abstraite
 {
-    Q_OBJECT
-
-signals:
-    void mouseClickEvent();
-
 public:
-    Personnage(QWidget *aParent=0)=0; // Fonction virtuelle pure
+    Personnage();
     ~Personnage();
 
     // Methods

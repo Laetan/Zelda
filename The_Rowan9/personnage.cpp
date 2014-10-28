@@ -1,12 +1,13 @@
 #include <QApplication>
 #include <QKeyEvent>
+#include <QString>
 
 #include "personnage.h"
 
 // Constructor
-Personnage::Personnage(QWidget *parent):
-    Qwidget(parent)
+Personnage::Personnage()
 {
+
 }
 
 // Methods
@@ -18,7 +19,7 @@ bool Personnage::Alive(int life)
         return false;
 }
 
-void Personnage::ReceiveDmg(int dmg)
+int Personnage::ReceiveDmg(int dmg)
 {
     life -= dmg;
 
@@ -36,7 +37,7 @@ void Personnage::Attack(Personnage &target)
 
 void Personnage::Speak()
 {
-    string text = "blabla"; //Afficher sur l'écran
+    QString text = "blabla"; //Afficher sur l'écran
 }
 
 
@@ -79,14 +80,5 @@ void Personnage::setY(int value)
 }
 
 
-
-
-void KeyPress::keyPressEvent(QKeyEvent *event)
-{
-    if(event->key() == Qt::Key_Z)
-    {
-
-    }
-}
 
 

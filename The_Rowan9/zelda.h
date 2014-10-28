@@ -4,6 +4,8 @@
 #include "personnage.h"
 #include <QTimer>
 #include <QObject>
+#include <QString>
+#include <QGraphicsPixmapItem>
 
 class Zelda : public Personnage
 {
@@ -13,20 +15,25 @@ public:
     ~Zelda();
 
     // Methods
-    int GetArrows();
-    void TakeItem(Ressource &item); // take life, weapon,...
+    int getArrows();
+   // void takeItem(Ressource &item); // take life, weapon,...
+
+
+    void move(QString);
+    void startMove(QString);
 
     // Getter & Setter
     int getNbreArrows() const;
     void setNbreArrows(int value);
 
-    string getName() const;
-    void setName(const string &value);
+    QString getName() const;
+    void setName(const QString &value);
 
 private:
     int nbreArrows;
-    string name;
-    pixmap picture;
+    QString dir;
+    QString name;
+    QPixmap picture;
     QTimer timer;
 
 
@@ -37,10 +44,6 @@ private:
     void keyReleaseEvent(QKeyEvent *event);
 
     void StartMove(char dir);
-
-private slot:
-    void move(char dir);
-
 };
 
 #endif // ZELDA_H
