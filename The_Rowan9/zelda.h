@@ -18,6 +18,7 @@ public:
     // Methods
     int getArrows();
    // void takeItem(Ressource &item); // take life, weapon,...
+    void setAnimation();
 
     // Getter & Setter
     int getNbreArrows() const;
@@ -29,20 +30,19 @@ public:
     QString getDir() const;
     void setDir(const QString &value);
 
-private:
+    QList<QPixmap> getListAnimation() const;
+
+protected:
     int nbreArrows;
-    QString name;
     QPixmap picture;
     QTimer timer;
     QList<QPixmap> listAnimation;
-
 
     // Mouse & Keyboard event
     void mousePressEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
     void keyPressEvent(QKeyEvent *event);
   //  void keyReleaseEvent(QKeyEvent *event);
-
 };
 
 #endif // ZELDA_H

@@ -10,7 +10,7 @@ Personnage::Personnage()
     Element();
 }
 
-Personnage::Personnage(QString picturePath):Element(picturePath){}
+Personnage::Personnage(QString picturePath, QString n):Element(picturePath, n){}
 
 // Methods
 bool Personnage::Alive(int life)

@@ -15,6 +15,7 @@ private:
     QTimer *timer;
     Zelda *zelda;
     void keyPressEvent(QKeyEvent *event);
+    void keyReleaseEvent(QKeyEvent *event);
 signals:
 
 public slots:

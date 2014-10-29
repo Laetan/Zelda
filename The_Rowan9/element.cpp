@@ -7,7 +7,7 @@ Element::Element()
     QGraphicsPixmapItem();
 }
 
-Element::Element(QString picturePath): QGraphicsPixmapItem(QPixmap(picturePath))
+Element::Element(QString picturePath, QString n): QGraphicsPixmapItem(QPixmap(picturePath)), name(n)
 {
 
 }
@@ -31,3 +31,13 @@ void Element::move()
     else if(dir == "d")
         this->moveBy(1,0);
 }
+QString Element::getDir() const
+{
+    return dir;
+}
+
+void Element::setDir(const QString &value)
+{
+    dir = value;
+}
+

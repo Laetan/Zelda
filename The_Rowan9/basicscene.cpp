@@ -3,6 +3,7 @@
 #include <QGraphicsItem>
 #include <QKeyEvent>
 #include "element.h"
+#include "zelda.h"
 
 BasicScene::BasicScene(QObject *parent) :
     QGraphicsScene(parent)
@@ -20,6 +21,9 @@ BasicScene::BasicScene(int x, int y, int xx , int yy, QObject *parent):
     zelda = new Zelda(path);
     qDebug()<<zelda;
     this->addItem(zelda);
+
+    // Instancier un monster
+
     timer = new QTimer(this);
     timer->setInterval(10);
     connect(timer, SIGNAL(timeout()),this, SLOT(update()));
@@ -34,19 +38,36 @@ void BasicScene::keyPressEvent(QKeyEvent *event)
     {
     case Qt::Key_Z:
         zelda->setDir("z");
+        zelda->setPixmap(zelda->getListAnimation()[1]);
         break;
     case Qt::Key_Q:
         zelda->setDir("q");
+        zelda->setPixmap(zelda->getListAnimation()[3]);
         break;
     case Qt::Key_S:
         zelda->setDir("s");
+        zelda->setPixmap(zelda->getListAnimation()[0]);
         break;
     case Qt::Key_D:
         zelda->setDir("d");
+        zelda->setPixmap(zelda->getListAnimation()[2]);
         break;
     default:
         break;
     }
+}
+
+void BasicScene::keyReleaseEvent(QKeyEvent *event)
+{
+    qDebug()<<event->key();
+    if(event->key() == Qt::Key_Z && zelda->getDir()=="z")
+        zelda->setDir("");
+    if(event->key() == Qt::Key_Q && zelda->getDir()=="q")
+        zelda->setDir("");
+    if(event->key() == Qt::Key_S && zelda->getDir()=="s")
+        zelda->setDir("");
+    if(event->key() == Qt::Key_D && zelda->getDir()=="d")
+        zelda->setDir("");
 }
 
 

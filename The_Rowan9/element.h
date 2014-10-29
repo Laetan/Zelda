@@ -10,13 +10,17 @@ class Element : public QGraphicsPixmapItem
 {
 public:
     Element();
-    Element(QString);
+    Element(QString, QString);
 
     void update2();
     void move();
 
+    QString getDir() const;
+    void setDir(const QString &value);
+
 protected:
     QString dir;
+    const QString name;
 
 };
 
