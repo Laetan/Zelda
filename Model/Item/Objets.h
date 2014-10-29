@@ -1,19 +1,23 @@
 #ifndef OBJETS_H
 #define OBJETS_H
 
-
-#include "Model/element.h"
-
+#include <QApplication>
+#include <QLabel>
+#include <QGraphicsPixmapItem>
+#include <QGraphicsScene>
 #include <QSound>
-#include <QTimer>
+#include <QTimer>  
+#include <QEventLoop>
+#include <QString>
+
 
 using namespace std;
 
-class Objets : public Element
+class Objets : public QGraphicsPixmapItem
 {
 public:
-    Objets(QGraphicsScene* ,string , int, int);
-    void ramasse(Zelda*, string);
+    Objets(QGraphicsScene* ,QString , int, int);
+    void ramasse(Zelda*, QString );
     void drop();
 	void dissapear();
 };
