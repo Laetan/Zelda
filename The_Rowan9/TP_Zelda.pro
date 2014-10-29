@@ -17,7 +17,8 @@ SOURCES += main.cpp\
     element.cpp \
     monster.cpp \
     personnage.cpp \
-    zelda.cpp
+    zelda.cpp \
+    basicscene.cpp
 
 HEADERS  += mainwindow.h \
     ../Zelda/element.h \
@@ -27,6 +28,7 @@ HEADERS  += mainwindow.h \
     element.h \
     monster.h \
     personnage.h \
-    zelda.h
+    zelda.h \
+    basicscene.h
 
 FORMS    += mainwindow.ui

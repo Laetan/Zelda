@@ -1,8 +1,22 @@
 #include "zelda.h"
 #include <QString>
-
+#include <QtDebug>
+#include <QPixmap>
 
 Zelda::Zelda()
+{
+    Personnage();
+    life = 10;
+    dmg = 0;
+    nbreArrows = 0;
+    name = "Zelda";
+
+    // Récupérer dans une QList les différentes sprites
+    QString path
+    listAnimation =
+}
+
+Zelda::Zelda(QString picturePath):Personnage(picturePath)
 {
     life = 10;
     dmg = 0;
@@ -40,6 +54,16 @@ void Zelda::setName(const QString &value)
 {
     name = value;
 }
+QString Zelda::getDir() const
+{
+    return dir;
+}
+
+void Zelda::setDir(const QString &value)
+{
+    dir = value;
+}
+
 
 void Zelda::mousePressEvent(QMouseEvent *event)
 {
@@ -48,21 +72,24 @@ void Zelda::mousePressEvent(QMouseEvent *event)
 
 void Zelda::keyPressEvent(QKeyEvent *event)
 {
-    // Appeler une fonction move
-    // Move : QTimer puis signal puis effectue le move
-    // connect(QTimer object, SIGNAL(timeout()), this, SLOT(moveby(parameter)));
-}
+    qDebug()<<event->key();
+    switch(event->key())
+    {
+    case Qt::Key_Z:
+        dir = "z";
+        break;
+    case Qt::Key_Q:
+        dir = "q";
+        break;
+    case Qt::Key_S:
+        dir = "s";
+        break;
+    case Qt::Key_D:
+        dir ="d";
+        break;
+    default:
+        break;
+    }
 
-//void Zelda::move(QString dir)
-//{
-//    if(dir == "z")
-//        this->moveBy(0,-1);
-//    else if(dir == "q")
-//        this->moveBy(-1,0);
-//    else if(dir == "s")
-//        this->moveBy(0,1);
-//    else if(dir == "d")
-//        this->moveBy(1,0);
-//    else
-//        qDebug() <<"Bad key";
-//}
+    // Appeler une fonction move
+}

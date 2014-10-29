@@ -7,8 +7,10 @@
 // Constructor
 Personnage::Personnage()
 {
-
+    Element();
 }
+
+Personnage::Personnage(QString picturePath):Element(picturePath){}
 
 // Methods
 bool Personnage::Alive(int life)

@@ -13,7 +13,7 @@ class Personnage : public Element  // Classe abstraite
 {
 public:
     Personnage();
-    ~Personnage();
+    Personnage(QString);
 
     // Methods
     void Move(int, int);

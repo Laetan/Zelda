@@ -10,11 +10,12 @@ class Element : public QGraphicsPixmapItem
 {
 public:
     Element();
-    ~Element();
-    void update();
+    Element(QString);
+
+    void update2();
     void move();
 
-private:
+protected:
     QString dir;
 
 };
