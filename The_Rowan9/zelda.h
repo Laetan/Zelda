@@ -15,34 +15,22 @@ public:
     Zelda();
     Zelda(QString);
 
-    // Methods
-    int getArrows();
-   // void takeItem(Ressource &item); // take life, weapon,...
+    //Methods
+    void death();
+    void setDeath();
     void setAnimation();
 
     // Getter & Setter
-    int getNbreArrows() const;
-    void setNbreArrows(int value);
-
-    QString getName() const;
-    void setName(const QString &value);
-
-    QString getDir() const;
-    void setDir(const QString &value);
-
     QList<QPixmap> getListAnimation() const;
 
+    QList<QPixmap> getListDeath() const;
+
 protected:
-    int nbreArrows;
     QPixmap picture;
     QTimer timer;
     QList<QPixmap> listAnimation;
+    QList<QPixmap> listDeath;
 
-    // Mouse & Keyboard event
-    void mousePressEvent(QMouseEvent *event);
-    void mouseReleaseEvent(QMouseEvent *event);
-    void keyPressEvent(QKeyEvent *event);
-  //  void keyReleaseEvent(QKeyEvent *event);
 };
 
 #endif // ZELDA_H

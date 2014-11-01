@@ -4,6 +4,7 @@
 #include <QGraphicsScene>
 #include <QTimer>
 #include "zelda.h"
+#include "monster.h"
 
 class BasicScene : public QGraphicsScene
 {
@@ -14,6 +15,7 @@ public:
 private:
     QTimer *timer;
     Zelda *zelda;
+    Monster *monstre;
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
 signals:

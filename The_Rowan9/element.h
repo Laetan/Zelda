@@ -14,12 +14,23 @@ public:
 
     void update2();
     void move();
+    void moveMonster();
 
+    void death();
+
+    // Getter & Setter
     QString getDir() const;
     void setDir(const QString &value);
 
+    QString getName() const;
+
+    int getLife() const;
+    void setLife(int value);
+
 protected:
+    int life;
     QString dir;
+    int pas;
     const QString name;
 
 };

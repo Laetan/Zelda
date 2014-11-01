@@ -2,28 +2,38 @@
 #include "element.h"
 
 #include <QString>
+#include <QPixmap>
 
-Monster::Monster()
+Monster::Monster():Element("", "monstre")
 {
-    Element();
+    life = 5;
+    dmg = 2;
 }
 
-Monster::Monster(int life, int dmg)
+Monster::Monster(QString picturePath):Element(picturePath, "monstre")
 {
-    Element();
-    this->life = life;
-    this->dmg = dmg;
+    life = 5;
+    dmg = 2;
+    this->setAnimation();
 }
 
-void Monster::move()
+void Monster::setAnimation()
 {
-    int pas = 0, i=0;
-    this->setDir() = "";
-    QVector<QString> DiffDir = {"z", "q", "s", "d"};
-    qsrand(0);
+    // Récupérer dans une QList les différentes sprites
+    QString path = "C:\\Users\\faudi_000\\Desktop\\Qt\\build-TP_Zelda-Desktop_Qt_5_3_MinGW_32bit-Debug\\debug\\Ressource\\Sprites";
+    QString path_face = path + "\\monster_face.png";
+//    QString path_back = path + "\\zelda_back.png";
+//    QString path_right = path + "\\zelda_right.png";
+//    QString path_left = path + "\\zelda_left.png";
 
-    pas = qrand()%100;
-    i = qrand()%4;
-    this->setDir(DiffDir(i));
+    listAnimation.append(QPixmap(path_face));
+//    listAnimation.append(QPixmap(path_back));
+//    listAnimation.append(QPixmap(path_right));
+//    listAnimation.append(QPixmap(path_left));
+}
+
+QList<QPixmap> Monster::getListAnimation() const
+{
+     return listAnimation;
 }
 

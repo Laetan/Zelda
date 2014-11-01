@@ -16,16 +16,14 @@ public:
     Personnage(QString, QString);
 
     // Methods
-    void Move(int, int);
+    void death();
+
     bool Alive(int life);
     int ReceiveDmg(int dmg);
     void Attack(Personnage &target);
     void Speak();
 
     //Getter & Setter
-    int getLife() const;
-    void setLife(int value);
-
     int getDmg() const;
     void setDmg(int value);
 
@@ -37,7 +35,7 @@ public:
 
 
 protected:
-    int life;
+
     int dmg;
     int x;
     int y;

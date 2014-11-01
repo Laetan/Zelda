@@ -44,15 +44,6 @@ void Personnage::Speak()
 
 
 // Getter & Setter
-int Personnage::getLife() const
-{
-    return life;
-}
-
-void Personnage::setLife(int value)
-{
-    life = value;
-}
 int Personnage::getDmg() const
 {
     return dmg;

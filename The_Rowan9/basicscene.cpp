@@ -4,6 +4,7 @@
 #include <QKeyEvent>
 #include "element.h"
 #include "zelda.h"
+#include "monster.h"
 
 BasicScene::BasicScene(QObject *parent) :
     QGraphicsScene(parent)
@@ -17,12 +18,17 @@ BasicScene::BasicScene(QObject *parent) :
 BasicScene::BasicScene(int x, int y, int xx , int yy, QObject *parent):
     QGraphicsScene(x,y,xx,yy,parent)
 {
-    QString path = "C:\\Users\\faudi_000\\Desktop\\Qt\\build-TP_Zelda-Desktop_Qt_5_3_MinGW_32bit-Debug\\debug\\Ressource\\Sprites\\zelda.png";
-    zelda = new Zelda(path);
-    qDebug()<<zelda;
+    // Instancier Zelda
+    QString path01 = "C:\\Users\\faudi_000\\Desktop\\Qt\\build-TP_Zelda-Desktop_Qt_5_3_MinGW_32bit-Debug\\debug\\Ressource\\Sprites\\zelda.png";
+    zelda = new Zelda(path01);
     this->addItem(zelda);
+    zelda->setPos(200, 200);
 
     // Instancier un monster
+    QString path02 = "C:\\Users\\faudi_000\\Desktop\\Qt\\build-TP_Zelda-Desktop_Qt_5_3_MinGW_32bit-Debug\\debug\\Ressource\\Sprites\\monster_face.png";
+    monstre = new Monster(path02);
+    this->addItem(monstre);
+    monstre->setPos(300,300);
 
     timer = new QTimer(this);
     timer->setInterval(10);
@@ -73,12 +79,21 @@ void BasicScene::keyReleaseEvent(QKeyEvent *event)
 
 void BasicScene::update()
 {
+ //   qDebug()<<"update";
     QList<Element*> list;
     foreach(QGraphicsItem* item,this->items()){
         list.append((Element*) item);
     }
     foreach(Element* item,list){
-        item->update2();
-
+        if(item->getName()=="monstre")
+        {
+            Monster *m = (Monster*) item;
+            m->update2();
+        }
+        if(item->getName()=="zelda")
+        {
+            Zelda *z = (Zelda*) item;
+            z->update2();
+        }
     }
 }
