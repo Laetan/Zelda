@@ -37,12 +37,6 @@ protected:
     QPixmap picture;
     QTimer timer;
     QList<QPixmap> listAnimation;
-
-    // Mouse & Keyboard event
-    void mousePressEvent(QMouseEvent *event);
-    void mouseReleaseEvent(QMouseEvent *event);
-    void keyPressEvent(QKeyEvent *event);
-  //  void keyReleaseEvent(QKeyEvent *event);
 };
 
 #endif // ZELDA_H

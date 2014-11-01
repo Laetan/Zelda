@@ -31,7 +31,7 @@ World::World()
 
 const QString World::start(){
     for(int i = 0; i< zones.size();i++){
-        if(zones[i].endsWith("start")){
+        if(zones[i].endsWith("test2")){
             return zones[i];
         }
     }

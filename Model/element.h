@@ -10,11 +10,15 @@ class Element : public QGraphicsPixmapItem
 {
 public:
     Element();
-    Element(QString,QString);
+    Element(QString);
+    Element(QString, QString);
+    Element(QString, int, int, QString);
 
-    void update2();
-    void move();
-
+    void update();
+    void move(bool=false);
+    void death();
+    bool checkCollideWithEnv();
+    bool collideWithEnv(int,int);
     QString getName() const;
 
     QString getDir() const;
@@ -23,6 +27,7 @@ public:
     void setCurrentDir(const QString &value);
 
 protected:
+    int life;
     const QString name;
     int speed;
     QString dir;

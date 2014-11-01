@@ -2,6 +2,7 @@
 #include <QGraphicsView>
 #include <gamescene.h>
 
+#include "mainwindow.h"
 #include "Model/element.h"
 #include "Model/Character/personnage.h"
 #include "Model/Character/zelda.h"
@@ -9,16 +10,16 @@
 
 int main( int argc, char **argv )
 {
+    qsrand(QTime::currentTime().msec());
     QApplication app(argc, argv);
-    QGraphicsView *view = new QGraphicsView();
-    GameScene *scene = new GameScene(0,0,900,736,view);
-    view->setScene(scene);
+//    QGraphicsView *view = new QGraphicsView();
+//    GameScene *scene = new GameScene(0,0,900,736,view);
+//    view->setScene(scene);
 
-    // Instancier un objet Zelda
+    MainWindow *w = new MainWindow();
 
 
-
-    view->show();
+    w->show();
 
     return app.exec();
 

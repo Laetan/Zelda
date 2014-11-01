@@ -23,7 +23,8 @@ SOURCES += main.cpp\
         Model/Character/zelda.cpp \
         Model/element.cpp \
         Model/Character/Monster/monster.cpp \
-        Model/Item/arrow.cpp
+        Model/Item/arrow.cpp \
+    Model/Item/projectile.cpp
 
 HEADERS  += mainwindow.h \
         gamescene.h\
@@ -34,6 +35,7 @@ HEADERS  += mainwindow.h \
         Model/Character/zelda.h \
         Model/element.h \
         Model/Character/Monster/monster.h \
-        Model/Item/arrow.h
+        Model/Item/arrow.h \
+    Model/Item/projectile.h
 
 FORMS    += mainwindow.ui

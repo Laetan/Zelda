@@ -16,7 +16,7 @@ Zelda::Zelda()
 Zelda::Zelda(QString picturePath):Personnage(picturePath, "zelda")
 {
     life = 10;
-    speed=1;
+    speed=2;
     dmg = 0;
     nbreArrows = 0;
     this->setAnimation();
@@ -73,33 +73,3 @@ QList<QPixmap> Zelda::getListAnimation() const
     return listAnimation;
 }
 
-
-
-void Zelda::mousePressEvent(QMouseEvent *event)
-{
-    // Appeler une fonction shoot
-}
-
-void Zelda::keyPressEvent(QKeyEvent *event)
-{
-    qDebug()<<event->key();
-    switch(event->key())
-    {
-    case Qt::Key_Z:
-        dir = "z";
-        break;
-    case Qt::Key_Q:
-        dir = "q";
-        break;
-    case Qt::Key_S:
-        dir = "s";
-        break;
-    case Qt::Key_D:
-        dir ="d";
-        break;
-    default:
-        break;
-    }
-
-    // Appeler une fonction move
-}

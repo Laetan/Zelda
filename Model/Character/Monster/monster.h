@@ -2,17 +2,28 @@
 #define MONSTER_H
 
 #include "../../element.h"
+#include <QPixmap>
 
 class Monster : public Element
 {
-public:
-    Monster();
-    Monster(int life, int dmg);
+    public:
+        Monster();
+        Monster(QString,int,int);
 
-    void move();
+        void setDeath();
+        void update();
+        void setAnimation();
+        QList<QPixmap> getListAnimation() const;
 
-    // Fonction move à rédéfinir
-    // nbre de pas random + dir random (z, q, s, d)
+
+    protected:
+        int life;
+        int dmg;
+        int pas;
+        QList<QPixmap> listAnimation;
+
+        void move(bool = false);
+
 };
 
 #endif // MONSTER_H

@@ -1,10 +1,10 @@
 #ifndef ARROW_H
 #define ARROW_H
 
-#include "Model/element.h"
+#include "Model/Item/projectile.h"
 #include <QPointF>
 
-class Arrow : public Element
+class Arrow : public Projectile
 {
 public:
     Arrow(QPointF,QString);

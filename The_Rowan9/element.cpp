@@ -70,6 +70,11 @@ void Element::death()
 
 }
 
+void Element::checkCollideWithEnv()
+{
+
+}
+
 
 
 QString Element::getDir() const

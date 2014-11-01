@@ -18,17 +18,43 @@ GameScene::GameScene(QObject *parent) :
 GameScene::GameScene(int x, int y, int xx , int yy, QObject *parent):
     QGraphicsScene(x,y,xx,yy,parent),envSS("sprite_zone"),world()
 {
-    QString path = QCoreApplication::applicationDirPath()+"/Ressources/sprites/zelda.png";
-
-    zelda = new Zelda(path);
-    this->addItem(zelda);
-    qDebug()<<zelda->pixmap();
+    zelda = 0;
     timer = new QTimer(this);
-    timer->setInterval(10);
+    timer->setInterval(20);
     connect(timer, SIGNAL(timeout()),this, SLOT(update()));
     timer->start();
     loadStage(world.start());
 }
+
+void GameScene::remove(Monster *m)
+{
+    monsterList.removeOne(m);
+    removeItem(m);
+}
+
+void GameScene::remove(Projectile *p)
+{
+    projectList.removeOne(p);
+    removeItem(p);
+}
+
+void GameScene::remove(Element *e)
+{
+    if(e->getName()=="projectile")
+        remove((Projectile*)e);
+    else
+        remove((Monster*)e);
+}
+QList<QList<int> > GameScene::getEnvData() const
+{
+    return envData;
+}
+
+void GameScene::setEnvData(const QList<QList<int> > &value)
+{
+    envData = value;
+}
+
 
 
 void GameScene::loadStage(QString stageName){
@@ -54,7 +80,10 @@ void GameScene::loadStage(QString stageName){
 
     fileName = stageName+".el";
     QFile fileEl(fileName);
-    if(!fileEl.open(QIODevice::ReadOnly))return;
+    if(!fileEl.open(QIODevice::ReadOnly)){
+        qDebug()<<file.errorString()+":"+fileName;
+        return;
+    }
     in.reset();
     in.setDevice(&fileEl);
     while(!in.atEnd()) {
@@ -62,12 +91,17 @@ void GameScene::loadStage(QString stageName){
         QList<QString> temp = line.split(";");
         QString path = QCoreApplication::applicationDirPath()+"/Ressources/sprites/";
         if(temp[2]=="rocker_red" || temp[2]=="rocker_blue"){
-//            Monster m = new Monster(path+"monster_face.png",temp[0],temp[1]);
-//            monsterList.append(m);
-//            this->addItem(m);
+            Monster *m = new Monster(path+"monster_face.png",temp[0].toInt(),temp[1].toInt());
+            m->setZValue(8);
+            monsterList.append(m);
+            this->addItem(m);
         }
-        //else if(temp1[2]=="bat")
-          //Monster m = new Monster(path+"monster_face.png",temp[0],temp[1]);
+        else if(temp[2]=="bat"){
+            Monster *m = new Monster(path+"monster_face.png",temp[0].toInt(),temp[1].toInt());
+            m->setZValue(8);
+            monsterList.append(m);
+            this->addItem(m);
+        }
 
 
     }
@@ -83,27 +117,39 @@ void GameScene::drawStage(){
             pic->setPixmap(envSS.get(envData[x][y]));
             pic->setPos(x*32,y*32);
             addItem(pic);
+            if(zelda==0 && envData[x][y]<101){
+                QString path = QCoreApplication::applicationDirPath()+"/Ressources/sprites/zelda.png";
+                zelda = new Zelda(path);
+                zelda->setZValue(10);
+                zelda->setPos(x*32,y*32);
+                qDebug()<<x;
+                qDebug()<<y;
+                this->addItem(zelda);
+
+            }
         }
     }
 }
 
 void GameScene::keyPressEvent(QKeyEvent *event)
 {
-    qDebug()<<event->key();
-    this->items();
     switch(event->key())
     {
     case Qt::Key_Z:
         zelda->setDir("z");
+        zelda->setPixmap(zelda->getListAnimation()[1]);
         break;
     case Qt::Key_Q:
         zelda->setDir("q");
+        zelda->setPixmap(zelda->getListAnimation()[3]);
         break;
     case Qt::Key_S:
         zelda->setDir("s");
+        zelda->setPixmap(zelda->getListAnimation()[0]);
         break;
     case Qt::Key_D:
         zelda->setDir("d");
+        zelda->setPixmap(zelda->getListAnimation()[2]);
         break;
     default:
         break;
@@ -112,7 +158,6 @@ void GameScene::keyPressEvent(QKeyEvent *event)
 
 void GameScene::keyReleaseEvent(QKeyEvent *event)
 {
-    qDebug()<<event->key();
     if(event->key() == Qt::Key_Z && zelda->getDir()=="z")
         zelda->setDir("");
     if(event->key() == Qt::Key_Q && zelda->getDir()=="q")
@@ -125,23 +170,22 @@ void GameScene::keyReleaseEvent(QKeyEvent *event)
 
 void GameScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    QList<Element*> list;
-    foreach(QGraphicsItem* item,this->items()){
-        list.append((Element*) item);
-    }
-    foreach(Element* item,list){
-        if(item->getName()=="zelda"){
-            Arrow *a = new Arrow(item->pos(),item->getDir());
-            this->addItem(a);
-        }
+
+    if(event->button()==Qt::LeftButton){
+        Arrow *a = new Arrow(zelda->pos(),zelda->getCurrentDir());
+        this->addItem(a);
+        projectList.append(a);
     }
 }
 
 void GameScene::update()
 {
-    zelda->update2();
+    zelda->update();
 
     foreach (Monster* m, monsterList) {
-        m->update2();
+        m->update();
+    }
+    foreach (Projectile* a, projectList) {
+        a->update();
     }
 }
