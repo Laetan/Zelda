@@ -1,17 +1,18 @@
 #ifndef MONSTER_H
 #define MONSTER_H
 
-#include "Model/Character/personnage.h"
-#include "Model/Item/Objets.h"
+#include "../../element.h"
 
-#include <QSound>
-
-class Monster : public Personnage
+class Monster : public Element
 {
 public:
-    Monster(QString);
+    Monster();
     Monster(int life, int dmg);
-    void drop();
+
+    void move();
+
+    // Fonction move à rédéfinir
+    // nbre de pas random + dir random (z, q, s, d)
 };
 
 #endif // MONSTER_H

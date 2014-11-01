@@ -2,35 +2,39 @@
 #include "IntroScene.h"
 #include <QGraphicsView>
 #include <QDebug>
+#include <QCoreApplication>
+#include "basicscene.h"
 
 
 IntroScene::IntroScene(int x, int y, int xx, int yy, QObject *parent):
     QGraphicsScene(x, y, xx, yy, parent)
 {
     this->clear();
-    this->display("C:\\Users\\faudi_000\\Desktop\\Qt\\build-tst_fenetre-Desktop_Qt_5_3_MinGW_32bit-Debug\\debug\\Image11.png");
-    qDebug()<<parent;
+    this->display(QCoreApplication::applicationDirPath()+"/Image11.png");
+    qDebug()<<this->parent();
 }
 
 void IntroScene::keyPressEvent(QKeyEvent *event)
 {
+    QGraphicsView *view= (QGraphicsView*)this->parent();
+    BasicScene *scene = new BasicScene(0,0,600,600,view);
     switch(event->key())
     {
     case Qt::Key_Space:
         this->clear();
-        this->display("C:\\Users\\faudi_000\\Desktop\\Qt\\build-tst_fenetre-Desktop_Qt_5_3_MinGW_32bit-Debug\\debug\\Image12.png");
+        this->display(QCoreApplication::applicationDirPath()+"/Image12.png");
         break;
     case Qt::Key_A:
         this->clear();
-        this->display("C:\\Users\\faudi_000\\Desktop\\Qt\\build-tst_fenetre-Desktop_Qt_5_3_MinGW_32bit-Debug\\debug\\Image13.png");
+        this->display(QCoreApplication::applicationDirPath()+"/Image13.png");
         break;
     case Qt::Key_B:
         this->clear();
-        this->display("C:\\Users\\faudi_000\\Desktop\\Qt\\build-tst_fenetre-Desktop_Qt_5_3_MinGW_32bit-Debug\\debug\\Image14.png");
+        this->display(QCoreApplication::applicationDirPath()+"/Image14.png");
         break;
     case Qt::Key_C:
         this->clear();
-        //parent.setScene(scene);
+        view->setScene(scene);
         break;
     default:
         break;
