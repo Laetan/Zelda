@@ -1,4 +1,5 @@
 #include "zelda.h"
+#include "gamescene.h"
 #include <QString>
 #include <QtDebug>
 #include <QPixmap>
@@ -20,6 +21,35 @@ Zelda::Zelda(QString picturePath):Personnage(picturePath, "zelda")
     dmg = 0;
     nbreArrows = 0;
     this->setAnimation();
+}
+
+void Zelda::update()
+{
+    if(dir!="")
+        currentDir=dir;
+    move();
+    bool collide = checkCollideWithEnv();
+    if(collide)
+        move(true);
+}
+
+void Zelda::checkCollideWithElement()
+{
+    QList<QGraphicsItem*> collidList = collidingItems();
+
+    foreach(QGraphicsItem *item, collidList){
+        try{
+            Element* element = (Element*)item;
+
+            if(element->getName()=="rocker")    move(true);
+            else if(element->getName()=="projectile"){
+                //takeDmg(element);
+                ((GameScene*)scene())->remove(element);
+            }
+
+        } catch(int e) {continue;}
+
+    }
 }
 
 int Zelda::getArrows()

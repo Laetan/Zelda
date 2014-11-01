@@ -10,6 +10,7 @@ class Monster : public Element
         Monster();
         Monster(QString,int,int);
 
+        void checkCollideWithElement();
         void setDeath();
         void update();
         void setAnimation();

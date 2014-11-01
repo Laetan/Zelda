@@ -15,7 +15,10 @@ public:
     Zelda();
     Zelda(QString);
 
-    // Methods
+    void update();
+
+    void checkCollideWithElement();
+
     int getArrows();
    // void takeItem(Ressource &item); // take life, weapon,...
     void setAnimation();
