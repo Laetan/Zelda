@@ -10,6 +10,7 @@
 #include <QEventLoop>
 #include <QString>
 
+#include"Model/Character/zelda.h"
 
 using namespace std;
 
@@ -17,9 +18,12 @@ class Objets : public QGraphicsPixmapItem
 {
 public:
     Objets(QGraphicsScene* ,QString , int, int);
-    void ramasse(Zelda*, QString );
+    void ramasse(Zelda*);
     void drop();
-	void dissapear();
+    void disappear();
+
+private:
+    QString type;
 };
 
 #endif // OBJETS_H

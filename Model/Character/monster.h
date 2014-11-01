@@ -1,17 +1,13 @@
 #ifndef MONSTER_H
 #define MONSTER_H
 
-#include "Model/Character/personnage.h"
-#include "Model/Item/Objets.h"
-
-#include <QSound>
+#include "personnage.h"
 
 class Monster : public Personnage
 {
 public:
-    Monster(QString);
+    Monster();
     Monster(int life, int dmg);
-    void drop();
 };
 
 #endif // MONSTER_H

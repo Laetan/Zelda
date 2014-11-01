@@ -1,11 +1,25 @@
-#include "mainwindow.h"
 #include <QApplication>
+#include <QGraphicsView>
+#include <gamescene.h>
 
-int main(int argc, char *argv[])
+#include "Model/element.h"
+#include "Model/Character/personnage.h"
+#include "Model/Character/zelda.h"
+#include <QtDebug>
+
+int main( int argc, char **argv )
 {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
+    QApplication app(argc, argv);
+    QGraphicsView *view = new QGraphicsView();
+    GameScene *scene = new GameScene(0,0,900,736,view);
+    view->setScene(scene);
 
-    return a.exec();
+    // Instancier un objet Zelda
+
+
+
+    view->show();
+
+    return app.exec();
+
 }

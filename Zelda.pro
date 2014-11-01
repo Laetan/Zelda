@@ -17,23 +17,23 @@ SOURCES += main.cpp\
         gamescene.cpp\
         spritefinder.cpp \
         spritesheetmanager.cpp \
-    world.cpp \
-    Model/Item/Objets.cpp \
-    Model/Monster/monster.cpp \
-    Model/Character/personnage.cpp \
-    Model/Character/zelda.cpp \
-    Model/element.cpp \
-    Model/Character/Monster/monster.cpp
+        world.cpp \
+        Model/Item/Objets.cpp \
+        Model/Character/personnage.cpp \
+        Model/Character/zelda.cpp \
+        Model/element.cpp \
+        Model/Character/Monster/monster.cpp \
+        Model/Item/arrow.cpp
 
 HEADERS  += mainwindow.h \
         gamescene.h\
         spritesheet.h \
-    world.h \
-    Model/Item/Objets.h \
-    Model/Monster/monster.h \
-    Model/Character/personnage.h \
-    Model/Character/zelda.h \
-    Model/element.h \
-    Model/Character/Monster/monster.h
+        world.h \
+        Model/Item/Objets.h \
+        Model/Character/personnage.h \
+        Model/Character/zelda.h \
+        Model/element.h \
+        Model/Character/Monster/monster.h \
+        Model/Item/arrow.h
 
 FORMS    += mainwindow.ui
