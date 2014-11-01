@@ -22,7 +22,28 @@ Zelda::Zelda(QString picturePath):Personnage(picturePath, "zelda")
 
 void Zelda::death()
 {
-    //Voir basicScene PressEvent
+    // Faut voir comment empecher toutes actions sur le clavier et la souris
+    life = this->getLife();
+    dir = this->getDir();
+
+    if(life == 0)
+    {
+        switch(dir)
+        {
+        case dir=="z":
+            this->setPixmap(this->getListDeath()[1]);
+            break;
+        case dir=="q":
+            this->setPixmap(this->getListDeath()[3]);
+            break;
+        case dir=="s":
+            this->setPixmap(this->getListDeath()[0]);
+            break;
+        case dir=="d":
+            this->setPixmap(this->getListDeath()[2]);
+            break;
+        }
+    }
 }
 
 // Methods
