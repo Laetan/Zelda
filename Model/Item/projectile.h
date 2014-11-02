@@ -6,7 +6,7 @@
 class Projectile : public Element
 {
 public:
-    Projectile(QString);
+    Projectile(QString, QString);
 };
 
 #endif // PROJECTILE_H

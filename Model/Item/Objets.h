@@ -3,7 +3,7 @@
 
 #include <QApplication>
 #include <QLabel>
-#include <QGraphicsPixmapItem>
+
 #include <QGraphicsScene>
 #include <QSound>
 #include <QTimer>  
@@ -11,18 +11,21 @@
 #include <QString>
 
 #include"Model/Character/zelda.h"
-
+#include "Model/element.h"
 using namespace std;
 
-class Objets : public QGraphicsPixmapItem
+class Objets : public Element
 {
 public:
-    Objets(QGraphicsScene* ,QString , int, int);
+    Objets(QString , int, int);
     void ramasse(Zelda*);
+    void update();
     void drop();
     void disappear();
 
 private:
+    int clearCounter;
+    int blinkCounter;
     QString type;
 };
 

@@ -1,7 +1,9 @@
 #include "monster.h"
-
+#include "Model/Item/pewpew.h"
+#include "gamescene.h"
 #include <QString>
 #include <QPixmap>
+
 
 Monster::Monster():Element("", "monstre")
 {
@@ -18,11 +20,41 @@ Monster::Monster(QString picturePath, int x, int y):Element(picturePath,x,y, "mo
     speed=1;
 }
 
+void Monster::checkCollideWithElement()
+{
+    QList<QGraphicsItem*> collidList = collidingItems();
+
+    foreach(QGraphicsItem *item, collidList){
+        QGraphicsPixmapItem *pic = (QGraphicsPixmapItem*)item;
+        if(pic->pixmap().size().width()<30){
+            Element* element = (Element*)item;
+
+            if(element->getName()=="rocker" || element->getName()=="zelda")    move(true);
+            else if(element->getName()=="arrow"){
+                GameScene *_scene = (GameScene*) this->scene();
+                _scene->remove(element);
+                takeDmg();
+            }
+        }
+    }
+}
+
+void Monster::shoot()
+{
+    if(qrand()%100>95){
+        Pewpew* p = new Pewpew(pos(),dir);
+        ((GameScene*)scene())->addItem(p);
+        ((GameScene*)scene())->addProjectile(p);
+    }
+}
+
 void Monster::update()
 {
     move();
     if(checkCollideWithEnv())
         move(true);
+    checkCollideWithElement();
+    shoot();
 }
 
 void Monster::setAnimation()
@@ -41,6 +73,12 @@ void Monster::setAnimation()
 QList<QPixmap> Monster::getListAnimation() const
 {
     return listAnimation;
+}
+
+void Monster::takeDmg(Element *element)
+{
+    (void*)element;
+    death();
 }
 
 void Monster::move(bool collide)
@@ -73,3 +111,35 @@ void Monster::move(bool collide)
     else        pas--;
 }
 
+void Monster::drop()
+{
+    int itemDrop = qrand() % 100 + 1;
+    itemDrop = 45;
+
+    Objets *o;
+    if( itemDrop <= 40) return;
+    else if(itemDrop <= 60){
+        o = new Objets("rubisV", pos().x(), pos().y());
+    }
+    else if(itemDrop <= 80){
+        o = new Objets("coeur",pos().x(), pos().y());
+    }
+    else if(itemDrop <= 90){
+        o = new Objets("rubisB",pos().x(), pos().y());
+    }
+    else if(itemDrop <= 95){
+        o = new Objets("rubisR",pos().x(), pos().y());
+    }
+    else if(itemDrop <= 100){
+        o = new Objets("fee",pos().x(), pos().y());
+    }
+    ((GameScene*)scene())->addItem(o);
+    ((GameScene*)scene())->addObjet(o);
+}
+
+void Monster::death(){
+    drop();
+    ((GameScene*)scene())->getMonsterList().removeOne(this);
+    ((GameScene*)scene())->remove(this);
+    delete this;
+}

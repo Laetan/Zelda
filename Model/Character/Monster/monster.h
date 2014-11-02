@@ -11,7 +11,9 @@ class Monster : public Element
         Monster(QString,int,int);
 
         void checkCollideWithElement();
+        void shoot();
         void setDeath();
+        void drop();
         void update();
         void setAnimation();
         QList<QPixmap> getListAnimation() const;
@@ -23,7 +25,9 @@ class Monster : public Element
         int pas;
         QList<QPixmap> listAnimation;
 
+        void takeDmg(Element* = 0);
         void move(bool = false);
+        void death();
 
 };
 

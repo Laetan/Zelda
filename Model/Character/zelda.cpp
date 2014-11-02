@@ -31,6 +31,7 @@ void Zelda::update()
     bool collide = checkCollideWithEnv();
     if(collide)
         move(true);
+    checkCollideWithElement();
 }
 
 void Zelda::checkCollideWithElement()
@@ -38,17 +39,51 @@ void Zelda::checkCollideWithElement()
     QList<QGraphicsItem*> collidList = collidingItems();
 
     foreach(QGraphicsItem *item, collidList){
-        try{
+        QGraphicsPixmapItem *pic = (QGraphicsPixmapItem*)item;
+        if(pic->pixmap().size().width()<30){
             Element* element = (Element*)item;
-
-            if(element->getName()=="rocker")    move(true);
-            else if(element->getName()=="projectile"){
-                //takeDmg(element);
-                ((GameScene*)scene())->remove(element);
+            if(element->getName()=="monstre" || element->getName()=="bat")    move(true);
+            else if(element->getName()=="pewpew"){
+                ((GameScene*) this->scene())->remove(element);
+                qDebug()<<"OUCH!";
+                //takeDmg();
             }
+            else if(element->getName()!="arrow"){
+                loot(element->getName());
+                qDebug()<<element->getName();
+                ((GameScene*) this->scene())->remove(element);
+            }
+        }
+    }
+}
 
-        } catch(int e) {continue;}
-
+void Zelda::loot(QString type)
+{
+    if( type=="rubisV"){
+        //zelda->setRubis(Zelda->getRubis()+1);
+        QSound::play(QCoreApplication::applicationDirPath()+"/Ressources/Sounds/OOT_Get_Rupee.wav");
+    }
+    if( type=="rubisB"){
+       // zelda->setRubis(Zelda->getRubis()+5);
+        QSound::play(QCoreApplication::applicationDirPath()+"/Ressources/Sounds/OOT_Get_Rupee.wav");
+    }
+    if( type=="rubisR"){
+        //zelda->setRubis(Zelda->getRubis()+20);
+        QSound::play(QCoreApplication::applicationDirPath()+"/Ressources/Sounds/OOT_Get_Rupee.wav");
+    }
+    if( type=="coeur"){
+        //zelda->setVie(Zelda->getVie()+1);
+        QSound::play(QCoreApplication::applicationDirPath()+"/Ressources/Sounds/LTTP_Item.wav");
+    }
+    if( type=="fee"){
+        //zelda->setVie(Zelda->getVie()+10);
+        QSound sound(QCoreApplication::applicationDirPath()+"/Ressources/Sounds/LTTP_Item.wav");
+        sound.play();
+        sound.setLoops(5);
+    }
+    if( type=="cle"){
+        //a definir
+        QSound::play(QCoreApplication::applicationDirPath()+"/Ressources/Sounds/MC_Fanfare_Item.wav");
     }
 }
 

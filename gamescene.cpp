@@ -38,12 +38,21 @@ void GameScene::remove(Projectile *p)
     removeItem(p);
 }
 
+void GameScene::remove(Objets *o)
+{
+    objetList.removeOne(o);
+    removeItem(o);
+    delete o;
+}
+
 void GameScene::remove(Element *e)
 {
-    if(e->getName()=="projectile")
-        remove((Projectile*)e);
+    if(e->getName()=="arrow" || e->getName()=="pewpew")
+        this->remove((Projectile*)e);
+    else if(e->getName()=="monster" || e->getName()=="bat")
+        this->remove((Monster*)e);
     else
-        remove((Monster*)e);
+        this->remove((Objets*)e);
 }
 QList<QList<int> > GameScene::getEnvData() const
 {
@@ -54,7 +63,33 @@ void GameScene::setEnvData(const QList<QList<int> > &value)
 {
     envData = value;
 }
+QList<Projectile *> GameScene::getProjectList() const
+{
+    return projectList;
+}
 
+void GameScene::addProjectile(Projectile *p)
+{
+    projectList.append(p);
+}
+QList<Objets *> GameScene::getObjetList() const
+{
+    return objetList;
+}
+
+void GameScene::addObjet(Objets *o)
+{
+    objetList.append(o);
+}
+QList<Monster *> GameScene::getMonsterList() const
+{
+    return monsterList;
+}
+
+void GameScene::setMonsterList(const QList<Monster *> &value)
+{
+    monsterList = value;
+}
 
 
 void GameScene::loadStage(QString stageName){
@@ -122,8 +157,6 @@ void GameScene::drawStage(){
                 zelda = new Zelda(path);
                 zelda->setZValue(10);
                 zelda->setPos(x*32,y*32);
-                qDebug()<<x;
-                qDebug()<<y;
                 this->addItem(zelda);
 
             }
@@ -187,5 +220,8 @@ void GameScene::update()
     }
     foreach (Projectile* a, projectList) {
         a->update();
+    }
+    foreach(Objets* o, objetList){
+        o->update();
     }
 }

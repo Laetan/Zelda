@@ -2,7 +2,7 @@
 #include <QSound>
 #include <QCoreApplication>
 #include <QtDebug>
-Arrow::Arrow(QPointF pos, QString dir):Projectile(dir)
+Arrow::Arrow(QPointF pos, QString dir):Projectile(dir,"arrow")
 {
     if(dir=="z"){
         this->setPixmap(QPixmap(QCoreApplication::applicationDirPath()+"/Ressources/sprites/arrow_U.png"));

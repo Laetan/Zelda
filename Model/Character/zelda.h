@@ -18,7 +18,7 @@ public:
     void update();
 
     void checkCollideWithElement();
-
+    void loot(QString);
     int getArrows();
    // void takeItem(Ressource &item); // take life, weapon,...
     void setAnimation();

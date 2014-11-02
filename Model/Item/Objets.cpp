@@ -1,34 +1,34 @@
 #include "Objets.h"
+#include "gamescene.h"
+#include <QCoreApplication>
 
-using namespace std;
-
-Objets::Objets(QGraphicsScene *map, QString  type, int posX, int posY):
-    QGraphicsPixmapItem(QPixmap(type+".png"))
+Objets::Objets(QString  type, int posX, int posY):
+   Element(QCoreApplication::applicationDirPath()+"/Ressources/sprites/"+type+".png",type)
 {
     setPos(posX,posY);
-    map->addItem(this);
-	
-	QEventLoop loop;
-	QTimer::singleShot(5000, &loop, SLOT(quit()));
-	loop.exec();
-    disappear();
+    clearCounter =2*50;
+//    qDebug()<<QCoreApplication::applicationDirPath()+"/Ressources/sprites/"+type+".png";
+    QFile file(QCoreApplication::applicationDirPath()+"/Ressources/sprites/"+type+".png");
+
+    if(!file.open(QIODevice::ReadOnly)){
+        qDebug()<<file.errorString();
+    }
 }
 
 void Objets::disappear()
 {
-	int cpt = 5;
-    while( cpt != 0){
-        setVisible(false);
-        QEventLoop loop;
-        QTimer::singleShot(1000, &loop, SLOT(quit()));
-        loop.exec();
-        setVisible(true);
-        QTimer::singleShot(1000, &loop, SLOT(quit()));
-        loop.exec();
-        cpt--;
+    if(clearCounter<-50){
+        ((GameScene*)scene())->remove(this);
     }
-    delete this; // suppression de l'item
+    else if(blinkCounter==0){
+            setVisible(!isVisible());
+            blinkCounter=1;
+    }
+    else    blinkCounter--;
+
+
 }
+
 
 void Objets::ramasse(Zelda *zelda) {
 
@@ -58,4 +58,10 @@ void Objets::ramasse(Zelda *zelda) {
 		//a definir
 		QSound::play("MC_Fanfare_Item.wav");
     }
+}
+
+void Objets::update()
+{
+    if(--clearCounter<=0)
+        disappear();
 }

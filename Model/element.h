@@ -16,7 +16,7 @@ public:
 
     void update();
     void move(bool=false);
-    void death();
+
     bool checkCollideWithEnv();
     bool collideWithEnv(int,int);
     QString getName() const;
@@ -32,6 +32,8 @@ protected:
     int speed;
     QString dir;
     QString currentDir;
+
+    void death();
 
 };
 

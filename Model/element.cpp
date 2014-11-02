@@ -25,11 +25,9 @@ Element::Element(QString picturePath,int x,int y,QString n): QGraphicsPixmapItem
 
 void Element::update()
 {
-    if(dir!="")
-        currentDir=dir;
     move();
     bool collide = checkCollideWithEnv();
-    if( collide && name=="projectile")
+    if( collide && (name=="pewpew" || name=="arrow"))
         ((GameScene*)scene())->remove(this);
     else if(collide)
         move(true);
