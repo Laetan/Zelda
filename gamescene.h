@@ -22,6 +22,8 @@ public:
     void remove(Objets*);
     void remove(Element*);
 
+    void changeStage(QString);
+
     QList<QList<int> > getEnvData() const;
     void setEnvData(const QList<QList<int> > &value);
 
@@ -39,14 +41,16 @@ private:
     World world;
     QTimer *timer;
     Zelda *zelda;
+    QString stage;
 
     QList<Monster*> monsterList;
     QList<Projectile*> projectList;
     QList<Objets*> objetList;
+    QList<QGraphicsItem*> itemList;
     void keyPressEvent(QKeyEvent *event);
     void mousePressEvent(QGraphicsSceneMouseEvent*);
-    void loadStage(QString);
-    void drawStage();
+    void loadStage(QString, QString="");
+    void drawStage(QString);
     void keyReleaseEvent(QKeyEvent *event);
 signals:
 

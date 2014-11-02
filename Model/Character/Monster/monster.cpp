@@ -27,14 +27,13 @@ void Monster::checkCollideWithElement()
     foreach(QGraphicsItem *item, collidList){
         QGraphicsPixmapItem *pic = (QGraphicsPixmapItem*)item;
         if(pic->pixmap().size().width()<30){
-            Element* element = (Element*)item;
-
-            if(element->getName()=="rocker" || element->getName()=="zelda")    move(true);
-            else if(element->getName()=="arrow"){
+            Element* element = (Element*)item;            
+            if(element->getName()=="arrow"){
                 GameScene *_scene = (GameScene*) this->scene();
                 _scene->remove(element);
                 takeDmg();
             }
+            else if(element->getName()=="rocker" || element->getName()=="zelda")    move(true);
         }
     }
 }
@@ -65,9 +64,9 @@ void Monster::setAnimation()
 
 
     listAnimation.append(QPixmap(path_face));
-//    listAnimation.append(QPixmap(path_back));
-//    listAnimation.append(QPixmap(path_right));
-//    listAnimation.append(QPixmap(path_left));
+    //listAnimation.append(QPixmap(path_back));
+   // listAnimation.append(QPixmap(path_right));
+    //listAnimation.append(QPixmap(path_left));
 }
 
 QList<QPixmap> Monster::getListAnimation() const
@@ -88,10 +87,11 @@ void Monster::move(bool collide)
     if(pas<=0)
     {
         QList<QString> DiffDir;
-        DiffDir <<"z" <<"s"<< "q"<< "d";
+        DiffDir <<"s" <<"z"<< "d"<< "q";
         pas = qrand()%50;
         int i = qrand()%4;
         dir=DiffDir[i];
+        //setPixmap(listAnimation[i]);
     }
     if(dir == "z")
         this->moveBy(0,-1*speed);
@@ -114,7 +114,6 @@ void Monster::move(bool collide)
 void Monster::drop()
 {
     int itemDrop = qrand() % 100 + 1;
-    itemDrop = 45;
 
     Objets *o;
     if( itemDrop <= 40) return;

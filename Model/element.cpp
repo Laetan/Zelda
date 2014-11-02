@@ -26,10 +26,10 @@ Element::Element(QString picturePath,int x,int y,QString n): QGraphicsPixmapItem
 void Element::update()
 {
     move();
-    bool collide = checkCollideWithEnv();
-    if( collide && (name=="pewpew" || name=="arrow"))
+    int env = checkCollideWithEnv();
+    if( env==1 && (name=="pewpew" || name=="arrow"))
         ((GameScene*)scene())->remove(this);
-    else if(collide)
+    else if(env==1)
         move(true);
 
 }
@@ -48,19 +48,56 @@ void Element::move(bool collide)
     if(collide) speed*=-1;
 }
 
-bool Element::checkCollideWithEnv(){
+int Element::checkCollideWithEnv(){
 
     int x(pos().x()),y(pos().y()),w(pixmap().size().width()),h(pixmap().size().height());
-    return collideWithEnv(x,y) || collideWithEnv(x+w,y)
-            || collideWithEnv(x,y+h) || collideWithEnv(x+w,y+h);
+    int a(collideWithEnv(x,y)),b(collideWithEnv(x,y+h)),c(collideWithEnv(x+w,y)),d(collideWithEnv(x+w,y+h));
+    if(a==1 || b==1 || c==1 || d==1)
+        return 1;
+    else
+        return qMax(qMax(a,b),qMax(c,d));
+
 
 }
 
-bool Element::collideWithEnv(int x, int y)
+int Element::collideWithEnv(int x, int y)
 {
     QList<QList<int> > data = ((GameScene*)this->scene())->getEnvData();
-    return (data[(int)x/32][(int)y/32]>100);
+    if(data[(int)x/32][(int)y/32]>100 && data[(int)x/32][(int)y/32]<201 || data[(int)x/32][(int)y/32]==0){
+        return 1;
+    }
+    else if(data[(int)x/32][(int)y/32]>200){
+        return data[(int)x/32][(int)y/32];
+    }
+    else
+        return 0;
 
+}
+
+void Element::eventEnv(int env)
+{
+    switch(env){
+    case 201:
+        ((GameScene*)scene())->changeStage("U");
+        break;
+    case 202:
+        ((GameScene*)scene())->changeStage("D");
+        break;
+    case 203:
+        ((GameScene*)scene())->changeStage("N");
+        break;
+    case 204:
+        ((GameScene*)scene())->changeStage("S");
+        break;
+    case 205:
+        ((GameScene*)scene())->changeStage("E");
+        break;
+    case 206:
+        ((GameScene*)scene())->changeStage("W");
+        break;
+    default:
+        break;
+    }
 }
 
 

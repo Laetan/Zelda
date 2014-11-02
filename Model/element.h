@@ -17,8 +17,9 @@ public:
     void update();
     void move(bool=false);
 
-    bool checkCollideWithEnv();
-    bool collideWithEnv(int,int);
+    int checkCollideWithEnv();
+    int collideWithEnv(int,int);
+    void eventEnv(int);
     QString getName() const;
 
     QString getDir() const;

@@ -28,9 +28,11 @@ void Zelda::update()
     if(dir!="")
         currentDir=dir;
     move();
-    bool collide = checkCollideWithEnv();
-    if(collide)
+    int env=checkCollideWithEnv();
+    if(env==1)
         move(true);
+    else if(env > 0)
+        eventEnv(env);
     checkCollideWithElement();
 }
 

@@ -18,9 +18,7 @@ class Objets : public Element
 {
 public:
     Objets(QString , int, int);
-    void ramasse(Zelda*);
     void update();
-    void drop();
     void disappear();
 
 private:

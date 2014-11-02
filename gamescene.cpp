@@ -28,19 +28,23 @@ GameScene::GameScene(int x, int y, int xx , int yy, QObject *parent):
 
 void GameScene::remove(Monster *m)
 {
+    qDebug()<<"monster death";
     monsterList.removeOne(m);
+    itemList.removeOne(m);
     removeItem(m);
 }
 
 void GameScene::remove(Projectile *p)
 {
     projectList.removeOne(p);
+    itemList.removeOne(p);
     removeItem(p);
 }
 
 void GameScene::remove(Objets *o)
 {
     objetList.removeOne(o);
+    itemList.removeOne(o);
     removeItem(o);
     delete o;
 }
@@ -53,6 +57,19 @@ void GameScene::remove(Element *e)
         this->remove((Monster*)e);
     else
         this->remove((Objets*)e);
+}
+
+void GameScene::changeStage(QString dir)
+{
+    foreach(QGraphicsItem *item, itemList)
+        this->removeItem(item);
+    qDebug()<<this->items();
+    itemList.clear();
+    monsterList.clear();
+    objetList.clear();
+    projectList.clear();
+    envData.clear();
+    loadStage(world.nextStage(stage,dir),dir);
 }
 QList<QList<int> > GameScene::getEnvData() const
 {
@@ -71,6 +88,7 @@ QList<Projectile *> GameScene::getProjectList() const
 void GameScene::addProjectile(Projectile *p)
 {
     projectList.append(p);
+    itemList.append(p);
 }
 QList<Objets *> GameScene::getObjetList() const
 {
@@ -80,6 +98,7 @@ QList<Objets *> GameScene::getObjetList() const
 void GameScene::addObjet(Objets *o)
 {
     objetList.append(o);
+    itemList.append(o);
 }
 QList<Monster *> GameScene::getMonsterList() const
 {
@@ -92,7 +111,8 @@ void GameScene::setMonsterList(const QList<Monster *> &value)
 }
 
 
-void GameScene::loadStage(QString stageName){
+void GameScene::loadStage(QString stageName, QString dir){
+    stage=stageName;
     QString fileName = stageName+".zn";
     QFile file(fileName);
     if(!file.open(QIODevice::ReadOnly)) {
@@ -111,7 +131,7 @@ void GameScene::loadStage(QString stageName){
         envData<<temp2;
 
     }    
-    drawStage();
+    drawStage(dir);
 
     fileName = stageName+".el";
     QFile fileEl(fileName);
@@ -129,12 +149,14 @@ void GameScene::loadStage(QString stageName){
             Monster *m = new Monster(path+"monster_face.png",temp[0].toInt(),temp[1].toInt());
             m->setZValue(8);
             monsterList.append(m);
+            itemList.append(m);
             this->addItem(m);
         }
         else if(temp[2]=="bat"){
             Monster *m = new Monster(path+"monster_face.png",temp[0].toInt(),temp[1].toInt());
             m->setZValue(8);
             monsterList.append(m);
+            itemList.append(m);
             this->addItem(m);
         }
 
@@ -143,7 +165,8 @@ void GameScene::loadStage(QString stageName){
 
 }
 
-void GameScene::drawStage(){
+void GameScene::drawStage(QString dir){
+
     this->setBackgroundBrush(Qt::black);
     for(int x = 0; x < envData.size();x++){
         for(int y = 0; y<envData[x].size();y++){
@@ -151,6 +174,7 @@ void GameScene::drawStage(){
             QGraphicsPixmapItem *pic = new QGraphicsPixmapItem();
             pic->setPixmap(envSS.get(envData[x][y]));
             pic->setPos(x*32,y*32);
+            itemList.append(pic);
             addItem(pic);
             if(zelda==0 && envData[x][y]<101){
                 QString path = QCoreApplication::applicationDirPath()+"/Ressources/sprites/zelda.png";
@@ -158,7 +182,21 @@ void GameScene::drawStage(){
                 zelda->setZValue(10);
                 zelda->setPos(x*32,y*32);
                 this->addItem(zelda);
-
+            }
+            else if(dir=="N" && envData[x][y]==14){
+                qDebug()<<x;
+                qDebug()<<y;
+                zelda->setPos(x*32,y*32);
+                zelda->setZValue(100);
+            }
+            else if(dir=="S" && envData[x][y]==24){
+                zelda->setPos(x*32,y*32);
+            }
+            else if(dir=="W" && envData[x][y]==44){
+                zelda->setPos(x*32,y*32);
+            }
+            else if(dir=="E" && envData[x][y]==34){
+                zelda->setPos(x*32,y*32);
             }
         }
     }
@@ -208,6 +246,7 @@ void GameScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         Arrow *a = new Arrow(zelda->pos(),zelda->getCurrentDir());
         this->addItem(a);
         projectList.append(a);
+        itemList.append(a);
     }
 }
 
