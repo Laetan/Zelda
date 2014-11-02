@@ -40,7 +40,6 @@ World::World()
         }
 
     }
-    qDebug()<<links;
 }
 
 const QString World::start(){

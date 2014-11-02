@@ -19,10 +19,12 @@ public:
 
     void checkCollideWithElement();
     void loot(QString);
+    void takeDmg();
     int getArrows();
    // void takeItem(Ressource &item); // take life, weapon,...
     void setAnimation();
-
+    void blink();
+    void death();
     // Getter & Setter
     int getNbreArrows() const;
     void setNbreArrows(int value);
@@ -35,9 +37,15 @@ public:
 
     QList<QPixmap> getListAnimation() const;
 
+public:
+
+protected:
+
 protected:
     int nbreArrows;
     QPixmap picture;
+    int blinkCounter = 0;
+    int blinkOn = 0;
     QTimer timer;
     QList<QPixmap> listAnimation;
 };

@@ -16,7 +16,7 @@ Zelda::Zelda()
 
 Zelda::Zelda(QString picturePath):Personnage(picturePath, "zelda")
 {
-    life = 10;
+    life = 3;
     speed=2;
     dmg = 0;
     nbreArrows = 0;
@@ -33,7 +33,10 @@ void Zelda::update()
         move(true);
     else if(env > 0)
         eventEnv(env);
-    checkCollideWithElement();
+    if(blinkOn != 0)
+        blink();
+    else
+        checkCollideWithElement();
 }
 
 void Zelda::checkCollideWithElement()
@@ -44,11 +47,12 @@ void Zelda::checkCollideWithElement()
         QGraphicsPixmapItem *pic = (QGraphicsPixmapItem*)item;
         if(pic->pixmap().size().width()<30){
             Element* element = (Element*)item;
-            if(element->getName()=="monstre" || element->getName()=="bat")    move(true);
-            else if(element->getName()=="pewpew"){
+            if(element->getName()=="monstre" )    move(true);
+            else if(element->getName()=="bat")
+                takeDmg();
+            else if(element->getName()=="pewpew" ){
                 ((GameScene*) this->scene())->remove(element);
-                qDebug()<<"OUCH!";
-                //takeDmg();
+                takeDmg();
             }
             else if(element->getName()!="arrow"){
                 loot(element->getName());
@@ -89,6 +93,42 @@ void Zelda::loot(QString type)
     }
 }
 
+void Zelda::takeDmg()
+{
+    life--;
+    qDebug()<<life;
+    if(life>0) blinkOn = 40;
+    else death();
+}
+
+void Zelda::blink()
+{
+    if(blinkCounter==0){
+        setVisible(!isVisible());
+        blinkCounter=1;
+    }
+    else    blinkCounter--;
+    blinkOn--;
+    if(blinkOn==0) setVisible(true);
+}
+
+void Zelda::death(){
+    QString path = QCoreApplication::applicationDirPath()+"/Ressources/sprites";
+    QString path_face = path + "/zelda_death_face.png";
+    QString path_back = path + "/zelda_death_back.png";
+    QString path_right = path + "/zelda_death_right.png";
+    QString path_left = path + "/zelda_death_left.png";
+    if(currentDir == "z")
+        setPixmap(QPixmap(path_back));
+    else if(currentDir == "q")
+        setPixmap(QPixmap(path_right));
+    else if(currentDir == "s")
+        setPixmap(QPixmap(path_face));
+    else if(currentDir == "d")
+        setPixmap(QPixmap(path_left));
+    qDebug()<<pixmap();
+}
+
 int Zelda::getArrows()
 {
     return nbreArrows;
@@ -108,11 +148,6 @@ void Zelda::setAnimation()
     listAnimation.append(QPixmap(path_right));
     listAnimation.append(QPixmap(path_left));
 }
-
-//void Zelda::takeItem(Ressource &item)
-//{
-//    // A implementer suivant les items créer
-//}
 
 
 // Getter & Setter

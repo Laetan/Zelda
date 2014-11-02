@@ -1,1 +1,6 @@
-start N zone2
+start N zone_2
+zone_2 E zone_a
+zone_a D zone_c2
+zone_c2 E zone_b
+zone_b U dead_end3
+zone_b N zone_fin

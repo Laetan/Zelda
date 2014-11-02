@@ -1,0 +1,12 @@
+854;331;bat
+790;327;bat
+708;316;bat
+786;213;bat
+717;232;bat
+877;226;bat
+880;444;bat
+797;437;bat
+706;430;bat
+228;511;rocker_blue
+409;515;rocker_blue
+329;446;rocker_blue

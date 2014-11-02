@@ -11,8 +11,10 @@ Monster::Monster():Element("", "monstre")
     dmg = 2;
 }
 
-Monster::Monster(QString picturePath, int x, int y):Element(picturePath,x,y, "monstre")
+Monster::Monster(QString picturePath, int x, int y,QString type):Element(picturePath,x,y, type)
 {
+    if(type =="bat")
+        setPixmap(QPixmap(QCoreApplication::applicationDirPath()+"/Ressources/sprites/bat1.png"));
     life = 5;
     dmg = 2;
     this->setAnimation();
@@ -33,7 +35,7 @@ void Monster::checkCollideWithElement()
                 _scene->remove(element);
                 takeDmg();
             }
-            else if(element->getName()=="rocker" || element->getName()=="zelda")    move(true);
+            else if(element->getName()=="bat" ||element->getName()=="monster" || element->getName()=="zelda")    move(true);
         }
     }
 }
@@ -50,23 +52,32 @@ void Monster::shoot()
 void Monster::update()
 {
     move();
+    if(name!="bat")
+        shoot();
     if(checkCollideWithEnv())
         move(true);
     checkCollideWithElement();
-    shoot();
+
 }
 
 void Monster::setAnimation()
 {
     // Récupérer dans une QList les différentes sprites
-    QString path = QCoreApplication::applicationDirPath()+"Ressources/sprites/";
+    QString path = QCoreApplication::applicationDirPath()+"/Ressources/sprites/";
     QString path_face = path + "monster_face.png";
+    QString path_back = path + "monster_back.png";
+    QString path_right = path + "monster_rigth.png";
+    QString path_left = path + "monster_left.png";
+    QString bat1 = path + "bat1.png";
+    QString bat2 = path + "bat2.png";
 
 
     listAnimation.append(QPixmap(path_face));
-    //listAnimation.append(QPixmap(path_back));
-   // listAnimation.append(QPixmap(path_right));
-    //listAnimation.append(QPixmap(path_left));
+    listAnimation.append(QPixmap(path_back));
+    listAnimation.append(QPixmap(path_right));
+    listAnimation.append(QPixmap(path_left));
+    listAnimation.append(QPixmap(bat1));
+    listAnimation.append(QPixmap(bat2));
 }
 
 QList<QPixmap> Monster::getListAnimation() const
@@ -91,8 +102,11 @@ void Monster::move(bool collide)
         pas = qrand()%50;
         int i = qrand()%4;
         dir=DiffDir[i];
-        //setPixmap(listAnimation[i]);
+        if(name!="bat")
+            setPixmap(listAnimation[i]);
     }
+    if(name=="bat")
+        setPixmap(listAnimation[4+pas%2]);
     if(dir == "z")
         this->moveBy(0,-1*speed);
     else if(dir == "q")

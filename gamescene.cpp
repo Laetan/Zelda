@@ -146,14 +146,14 @@ void GameScene::loadStage(QString stageName, QString dir){
         QList<QString> temp = line.split(";");
         QString path = QCoreApplication::applicationDirPath()+"/Ressources/sprites/";
         if(temp[2]=="rocker_red" || temp[2]=="rocker_blue"){
-            Monster *m = new Monster(path+"monster_face.png",temp[0].toInt(),temp[1].toInt());
+            Monster *m = new Monster(path+"monster_face.png",temp[0].toInt(),temp[1].toInt(),"monster");
             m->setZValue(8);
             monsterList.append(m);
             itemList.append(m);
             this->addItem(m);
         }
         else if(temp[2]=="bat"){
-            Monster *m = new Monster(path+"monster_face.png",temp[0].toInt(),temp[1].toInt());
+            Monster *m = new Monster(path+"monster_face.png",temp[0].toInt(),temp[1].toInt(),"bat");
             m->setZValue(8);
             monsterList.append(m);
             itemList.append(m);
@@ -198,12 +198,19 @@ void GameScene::drawStage(QString dir){
             else if(dir=="E" && envData[x][y]==34){
                 zelda->setPos(x*32,y*32);
             }
+            else if(dir=="U" && envData[x][y]==202){
+                zelda->setPos((x-1)*32,(y)*32);
+            }
+            else if(dir=="D" && envData[x][y]==201){
+                zelda->setPos((x-1)*32,(y)*32);
+            }
         }
     }
 }
 
 void GameScene::keyPressEvent(QKeyEvent *event)
 {
+    if(zelda->getLife()<=0) return;
     switch(event->key())
     {
     case Qt::Key_Z:
@@ -229,6 +236,7 @@ void GameScene::keyPressEvent(QKeyEvent *event)
 
 void GameScene::keyReleaseEvent(QKeyEvent *event)
 {
+    if(zelda->getLife()<=0) return;
     if(event->key() == Qt::Key_Z && zelda->getDir()=="z")
         zelda->setDir("");
     if(event->key() == Qt::Key_Q && zelda->getDir()=="q")
@@ -241,7 +249,7 @@ void GameScene::keyReleaseEvent(QKeyEvent *event)
 
 void GameScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-
+    if(zelda->getLife()<=0) return;
     if(event->button()==Qt::LeftButton){
         Arrow *a = new Arrow(zelda->pos(),zelda->getCurrentDir());
         this->addItem(a);
@@ -252,6 +260,7 @@ void GameScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void GameScene::update()
 {
+    if(zelda->getLife()<=0) return;
     zelda->update();
 
     foreach (Monster* m, monsterList) {

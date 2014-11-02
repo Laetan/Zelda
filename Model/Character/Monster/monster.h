@@ -8,7 +8,7 @@ class Monster : public Element
 {
     public:
         Monster();
-        Monster(QString,int,int);
+        Monster(QString, int, int, QString);
 
         void checkCollideWithElement();
         void shoot();
