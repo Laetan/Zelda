@@ -25,7 +25,8 @@ SOURCES += main.cpp\
         Model/Character/Monster/monster.cpp \
         Model/Item/arrow.cpp \
         Model/Item/projectile.cpp \
-        Model/Item/pewpew.cpp
+        Model/Item/pewpew.cpp \
+    IntroScene.cpp
 
 HEADERS  += mainwindow.h \
         gamescene.h\
@@ -38,6 +39,7 @@ HEADERS  += mainwindow.h \
         Model/Character/Monster/monster.h \
         Model/Item/arrow.h \
         Model/Item/projectile.h \
-        Model/Item/pewpew.h
+        Model/Item/pewpew.h \
+    IntroScene.h
 
 FORMS    += mainwindow.ui
