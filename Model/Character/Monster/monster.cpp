@@ -14,6 +14,8 @@ Monster::Monster(QString picturePath, int x, int y,QString type):Element(picture
     this->setAnimation();
     pas = 0;
     speed=1;
+    if(type =="bat")
+        speed = 3;
 }
 
 void Monster::checkCollideWithElement()
