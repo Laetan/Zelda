@@ -47,11 +47,13 @@ private:
     QList<Projectile*> projectList;
     QList<Objets*> objetList;
     QList<QGraphicsItem*> itemList;
+    QList<QGraphicsPixmapItem*> lifeList;
     void keyPressEvent(QKeyEvent *event);
     void mousePressEvent(QGraphicsSceneMouseEvent*);
     void loadStage(QString, QString="");
     void drawStage(QString);
     void keyReleaseEvent(QKeyEvent *event);
+    void lifeDisplay();
 signals:
 
 public slots:

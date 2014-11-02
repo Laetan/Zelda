@@ -247,6 +247,23 @@ void GameScene::keyReleaseEvent(QKeyEvent *event)
         zelda->setDir("");
 }
 
+void GameScene::lifeDisplay()
+{
+    while(zelda->getLife()!=lifeList.size()){
+        if(zelda->getLife()<lifeList.size()){
+            removeItem(lifeList.last());
+            lifeList.removeLast();
+        }
+        else if(zelda->getLife()>lifeList.size()){
+            QPixmap pix(QCoreApplication::applicationDirPath()+"/Ressources/sprites/coeur.png");
+            QGraphicsPixmapItem* p = new QGraphicsPixmapItem(pix);
+            lifeList.append(p);
+            addItem(p);
+            p->setPos(lifeList.size()*10,0);
+        }
+    }
+}
+
 void GameScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     if(zelda->getLife()<=0) return;
@@ -272,4 +289,5 @@ void GameScene::update()
     foreach(Objets* o, objetList){
         o->update();
     }
+    lifeDisplay();
 }
