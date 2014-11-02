@@ -10,6 +10,9 @@
 #include "Model/Item/Objets.h"
 #include "world.h"
 
+/**
+ * @brief Classe de la scene du jeu. Appelle periodiquement la fonction update
+ */
 class GameScene : public QGraphicsScene
 {
     Q_OBJECT
@@ -22,6 +25,9 @@ public:
     void remove(Objets*);
     void remove(Element*);
 
+    /** change la zone de jeu
+     * @brief changeStage
+     */
     void changeStage(QString);
 
     QList<QList<int> > getEnvData() const;

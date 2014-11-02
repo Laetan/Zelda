@@ -3,6 +3,9 @@
 
 #include "Model/element.h"
 
+/**
+ * @brief Classe de gestion des projectile
+ */
 class Projectile : public Element
 {
 public:

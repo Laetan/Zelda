@@ -4,15 +4,17 @@
 #include "../../element.h"
 #include <QPixmap>
 
+/**
+ * @brief Classe de gestion des monstres
+ */
 class Monster : public Element
 {
     public:
-        Monster();
+
         Monster(QString, int, int, QString);
 
         void checkCollideWithElement();
         void shoot();
-        void setDeath();
         void drop();
         void update();
         void setAnimation();

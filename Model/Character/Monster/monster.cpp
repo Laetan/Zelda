@@ -5,12 +5,6 @@
 #include <QPixmap>
 
 
-Monster::Monster():Element("", "monstre")
-{
-    life = 5;
-    dmg = 2;
-}
-
 Monster::Monster(QString picturePath, int x, int y,QString type):Element(picturePath,x,y, type)
 {
     if(type =="bat")

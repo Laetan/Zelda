@@ -8,6 +8,9 @@
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
 
+/**
+ * @brief Classe de gestion du joueur
+ */
 class Zelda : public Personnage
 {
 public:
@@ -21,10 +24,10 @@ public:
     void loot(QString);
     void takeDmg();
     int getArrows();
-   // void takeItem(Ressource &item); // take life, weapon,...
     void setAnimation();
     void blink();
     void death();
+
     // Getter & Setter
     int getNbreArrows() const;
     void setNbreArrows(int value);

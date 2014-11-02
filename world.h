@@ -2,6 +2,9 @@
 #define WORLD_H
 #include <QFile>
 
+/**
+ * @brief Classe de gestion des zones et de leu enchainement
+ */
 class World
 {
 public:

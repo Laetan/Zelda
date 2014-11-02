@@ -6,6 +6,9 @@
 #include <QGraphicsPixmapItem>
 #include <QString>
 
+/**
+ * @brief Classe de base pour tout les element affiché du jeu
+ */
 class Element : public QGraphicsPixmapItem
 {
 public:

@@ -3,6 +3,9 @@
 
 #include <QPixmap>
 
+/**
+ * @brief Classes de gestion des sprites sheet
+ */
 class SpriteFinder
 {
 public:
