@@ -5,6 +5,7 @@
 #include "element.h"
 #include "zelda.h"
 #include "monster.h"
+#include "Heart.h"
 
 BasicScene::BasicScene(QObject *parent) :
     QGraphicsScene(parent)
@@ -23,6 +24,11 @@ BasicScene::BasicScene(int x, int y, int xx , int yy, QObject *parent):
     zelda = new Zelda(path01);
     this->addItem(zelda);
     zelda->setPos(200, 200);
+
+    // instancier les coeurs
+    heart = new Heart();
+    this->addItem(heart);
+
 
     // Instancier un monster
     QString path02 = "C:\\Users\\faudi_000\\Desktop\\Qt\\build-TP_Zelda-Desktop_Qt_5_3_MinGW_32bit-Debug\\debug\\Ressource\\Sprites\\monster_face.png";
@@ -96,4 +102,8 @@ void BasicScene::update()
             z->update2();
         }
     }
+
+    //MAJ des coeurs
+    int life = zelda->getLife();
+    heart->displayLifePoint(life);
 }
