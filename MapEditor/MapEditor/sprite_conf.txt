@@ -1,0 +1,47 @@
+4;90;wall_n_w_in;Coin intérieur nord-ouest
+38;90;wall_north;Mur nord
+72;90;wall_n_e_in;Coin intérieur nord-est
+106;90 wall_s_e_out;Coin extérieur sud-est
+140;90;wall_s_w_out;Coin extérieur soud-ouest
+4;124;wall_west;Mur ouest
+38;124,floor_1;Sol 1
+72;124;wall_east; Mur est
+106;124;wall_n_e_out;Coin extérieur nord-est
+140;124;wall_n_w_out;Coin extérieur nord-ouest
+4;158;wall_s_w_in;Coin intérieur sud-ouest
+38;158;wall_south;Mur sud
+72;158;wall_s_e_out;Coin intérieur sud-est
+106;128;stairs_up;Escalier montant
+140;158;stairs_down;Escalier descendant
+
+208;90;floor_2;Sol 2
+208;124;switch;Interrupteur
+208;158;block_red;Bloc rouge
+
+140;192;door_south;Porte sud
+174;192;
+208;192;
+140;226;
+174;226;
+208;226;
+
+242;192;door_north;Porte nord
+276;192;
+310;192;
+242;226;
+276;226;
+310;226;
+
+140;260;door_west;Porte ouest
+174;260;
+140;294;
+174;294;
+140;328;
+174;328;
+
+208;260;door_east;Port est
+242;260;
+208;294;
+242;294;
+208;328;
+242;328;

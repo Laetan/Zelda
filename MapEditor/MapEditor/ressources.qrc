@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="sprite_zone_conf">Ressources/sprite_zone.conf</file>
+        <file>Ressources/sprite_zone.png</file>
+        <file>sprite_zone.png</file>
+        <file alias="conf.txt">sprite_conf.txt</file>
+    </qresource>
+</RCC>
